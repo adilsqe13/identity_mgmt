@@ -1,0 +1,40 @@
+<?php
+defined('BASEPATH') or exit('No direct script allowed');
+class ChangePasswordModel extends CI_Model
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
+    public function check_current_password($current_password)
+    {
+        $admin = $this->db->get('admin')->row();
+        if (password_verify($current_password, $admin->password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function change_password($new_password)
+    {
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+        // Prepare the data to be updated
+        $data = array(
+            'password' => $hashed_password
+        );
+
+        $this->db->update('admin', $data);
+
+        // Check if the update was successful
+        if ($this->db->affected_rows() > 0) {
+            return true; // Password updated successfully
+        } else {
+            return false; // Failed to update the password
+        }
+    }
+}
