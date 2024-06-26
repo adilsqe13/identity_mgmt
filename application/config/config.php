@@ -23,8 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'http://localhost/projects/identity_mgmt';
-$config['base_url'] = 'https://bitpastel.io/mi/adil/identity_mgmt/';
+$config['base_url'] = 'http://localhost/projects/identity_mgmt';
+// $config['base_url'] = 'https://bitpastel.io/mi/adil/identity_mgmt/';
+
+
+$config['log_threshold'] = 4; // Enable all types of logging
+
 
 /*
 |--------------------------------------------------------------------------

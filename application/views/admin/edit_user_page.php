@@ -123,14 +123,14 @@
                 </div>
                 <div class="modal-body">
                     <form action=<?php echo base_url("Admin/EditUser/edit_user") ?> method="post" enctype="multipart/form-data">
-                        <input type="hidden" id="user_id" name="user_id" value="<?php echo isset($user->id) ? $user->id :  $this->session->flashdata('id') ?>"></input>
+                        <input type="hidden" id="user_id" name="user_id" value="<?php echo isset($user->id) ? htmlspecialchars($user->id) :  htmlspecialchars($this->session->flashdata('id')) ?>"></input>
                         <div class="mb-3">
                             <label for="name" class="form-label ">Name</label>
-                            <input type="text" class="form-control" name="f_name" value='<?php echo isset($user->f_name) ? $user->f_name :  $this->session->flashdata('f_name') ?>' required />
+                            <input type="text" class="form-control" name="f_name" value='<?php echo isset($user->f_name) ? htmlspecialchars($user->f_name) :  htmlspecialchars($this->session->flashdata('f_name')) ?>' required />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label ">Email</label>
-                            <input type="email" class="form-control" name="email" value='<?php echo isset($user->email) ? $user->email :  $this->session->flashdata('email') ?>' required />
+                            <input type="email" class="form-control" name="email" value='<?php echo isset($user->email) ? htmlspecialchars($user->email) :  htmlspecialchars($this->session->flashdata('email')) ?>' required />
                             <!-- Error Msg Display -->
                             <?php if ($this->session->flashdata('email_error')) : ?>
                                 <h5 style="color: red ; font-size: 14px;" class="fs-6" align='left'><?php echo $this->session->flashdata('email_error'); ?></h5>

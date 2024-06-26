@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Activity Management</title>
+    <title>Archive Tasks</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="<?= base_url('plugins/fontawesome-free/css/all.min.css') ?>">
@@ -101,7 +101,7 @@
                         <img src="<?= base_url('dist/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"><?php echo 'Admin' ?></a>
+                        <a href="#" class="d-block"><?php echo $this->session->userdata('f_name') ?></a>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">
+                            <a href="<?= base_url('dashboard') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -131,35 +131,34 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('admin/user-management') ?>" class="nav-link">
+                            <a href="<?= base_url('dashboard/profile') ?>" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
-                                    User Management
+                                    Profile
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('admin/notification-management') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-bell "></i>
+                            <a href="<?= base_url('dashboard/picture-dump') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-image"></i>
                                 <p style="font-size: 15px;">
-                                    Notification Management
+                                    Photos
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="<?= base_url('admin/user-log-management') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-sign-in-alt"></i>
+                        <li class="nav-item">
+                            <a href="<?= base_url('dashboard/task-manager') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    User Log Management
+                                    Task Manager
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <span  class="nav-link active">
-                                <i class="nav-icon fas fa-chart-line"></i>
-
+                        <li class="nav-item">
+                            <span class="nav-link active">
+                                <i class="nav-icon fas fa-archive"></i>
                                 <p>
-                                    Activity Management
+                                    Archived
                                 </p>
                             </span>
                         </li>
@@ -177,76 +176,59 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                        <span class="h3"><button class="btn m-0" onclick="goBack()"><i class="fas fa-arrow-left"></i></button></span>
-                            <span class="m-0 h3">Activity Management</span>
+                            <span class="h3"><button class="btn m-0" onclick="goBack()"><i class="fas fa-arrow-left"></i></button></span>
+                            <span class="m-0 h3">Archive Tasks</span>
                         </div><!-- /.col -->
-                        <div class="col-sm-6">
-
-                        </div><!-- /.col -->
+                        <div class="col-sm-6 dfjeac"></div>
+                        <!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-
-                    <div class="card">
-                        <div class="card-body">
-                        <div class="form-group user_filter" style="width: 16%;">
-                                <select id="userFilter" class="form-control user_filter" onchange="filterLogs()">
-                                    <option value="">All Users</option>
-                                    <?php foreach ($users as $user) : ?>
-                                        <option value="<?= $user->id ?>"><?= $user->f_name ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Activity</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+            <div class="card">
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Task Name</th>
+                                <th>Description</th>
+                                <th>Added Date</th>
+                                <th>Archive Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($tasks as $task) {
+                            ?>
+                                <tr>
+                                    <td><?= $task->id ?></td>
+                                    <td><?= htmlspecialchars($task->task_name) ?></td>
+                                    <td><?= htmlspecialchars($task->description) ?></td>
+                                    <td>
                                     <?php
-                                    foreach ($data as $row) {
-                                    ?>
-                                        <tr>
-                                            <td><?= $row->user_id ?></td>
-                                            <td><?= $row->f_name ?></td>
-                                            <td><?= $row->activity ?></td>
-                                            <td><?php
-                                                $date = new DateTime("@$row->time");
+                                                $date = new DateTime("@$task->added_date");
                                                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
                                                 echo $date->format('d-F-Y');
                                                 ?>
-                                            </td>
-                                            <td><?php
-                                                $date = new DateTime("@$row->time");
-                                                $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
-                                                echo $date->format('h:ia');
-                                                ?></td>
-                                        </tr>
+                                </td>
+                                    <td>
                                     <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                           
-                        </div>
-                    </div>
-
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+                                                $date = new DateTime("@$task->archive_date");
+                                                $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                                                echo $date->format('d-F-Y');
+                                                ?>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <!-- /.content-wrapper -->
         <footer class="main-footer">
             <strong>Copyright &copy; 2017-2024 <a href="#">Bitpastel.io</a>.</strong>
             All rights reserved.
@@ -254,97 +236,70 @@
                 <b>Version</b> 3.2.0
             </div>
         </footer>
-    </div>
-    <!-- ./wrapper -->
+        <!-- ./wrapper -->
 
-    <script>
-        function goBack(){
-            window.history.back();
-        }
+        <script>
+            var baseUrl = "<?php echo base_url(); ?>";
 
-        function filterLogs() {
-            var filterValue = document.getElementById("userFilter").value;
-            var table = $('#example1').DataTable();
-
-            if (filterValue) {
-                table.column(0).search('^' + filterValue + '$', true, false).draw();
-            } else {
-                table.column(0).search('').draw();
+            function goBack() {
+                window.history.back();
             }
-        }
-    </script>
-    <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <script src="<?= base_url('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/chart.js/Chart.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/sparklines/sparkline.js') ?>"></script>
-    <script src="<?= base_url('plugins/jqvmap/jquery.vmap.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/jqvmap/maps/jquery.vmap.usa.js') ?>"></script>
-    <script src="<?= base_url('plugins/jquery-knob/jquery.knob.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/daterangepicker/daterangepicker.js') ?>"></script>
-    <script src="<?= base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/summernote/summernote-bs4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>"></script>
-    <script src="<?= base_url('dist/js/adminlte.js') ?>"></script>
-    <script src="<?= base_url('dist/js/pages/dashboard.js') ?>"></script>
-    <script src="<?= base_url('plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/toastr/toastr.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
-    <script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
-    <script src="<?= base_url('dist/js/adminlte.min.js?v=3.2.0') ?>"></script>
+        </script>
 
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
+        <script src="<?= base_url('plugins/jquery/jquery.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <script src="<?= base_url('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/chart.js/Chart.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/sparklines/sparkline.js') ?>"></script>
+        <script src="<?= base_url('plugins/jqvmap/jquery.vmap.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/jqvmap/maps/jquery.vmap.usa.js') ?>"></script>
+        <script src="<?= base_url('plugins/jquery-knob/jquery.knob.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/moment/moment.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/daterangepicker/daterangepicker.js') ?>"></script>
+        <script src="<?= base_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/summernote/summernote-bs4.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>"></script>
+        <script src="<?= base_url('dist/js/adminlte.js') ?>"></script>
+        <script src="<?= base_url('dist/js/pages/dashboard.js') ?>"></script>
+        <script src="<?= base_url('plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/toastr/toastr.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/jszip/jszip.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/pdfmake/pdfmake.min.js') ?>"></script>
+        <script src="<?= base_url('plugins/pdfmake/vfs_fonts.js') ?>"></script>
+        <script src="<?= base_url('dist/js/adminlte.min.js?v=3.2.0') ?>"></script>
 
-
-    <!-- Toast -->
-    <script>
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-        $(function() {
-            <?php if ($this->session->flashdata('login_success')) : ?>
-                Toast.fire({
-                    icon: 'success',
-                    title: '<?php echo $this->session->flashdata('login_success'); ?>'
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                 });
-            <?php endif; ?>
-        });
-    </script>
+            });
+        </script>
+        
 </body>
 
 </html>

@@ -220,9 +220,9 @@
                             ?>
                                 <tr>
                                     <td><?= $user->id ?></td>
-                                    <td><?= $user->f_name ?></td>
-                                    <td><?= $user->email ?></td>
-                                    <td><?= $user->mobile ?></td>
+                                    <td><?= htmlspecialchars($user->f_name) ?></td>
+                                    <td><?= htmlspecialchars($user->email) ?></td>
+                                    <td><?= htmlspecialchars($user->mobile) ?></td>
                                     <td>
                                         <div class="row">
                                             <div class="col-6">

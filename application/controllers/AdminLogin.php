@@ -45,6 +45,7 @@ class AdminLogin extends CI_Controller
                 redirect(base_url('admin/dashboard'));
             } else {
                 $this->session->set_flashdata('login_error', 'Invalid Credentials');
+                $this->session->set_flashdata('email', $post['email']);
                 redirect(base_url('admin'));
             }
         }

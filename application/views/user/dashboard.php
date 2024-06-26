@@ -117,7 +117,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= base_url('dashboard/profile')?>" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Profile
@@ -125,7 +125,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= base_url('dashboard/picture-dump')?>" class="nav-link">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p style="font-size: 15px;">
                                     Photos
@@ -133,10 +133,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= base_url('dashboard/task-manager')?>" class="nav-link">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
                                     Task Manager
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('dashboard/task-manager/archive-task') ?>" class="nav-link">
+                                <i class="nav-icon fas fa-archive"></i>
+                                <p>
+                                    Archived
                                 </p>
                             </a>
                         </li>
@@ -172,31 +180,16 @@
                     <div class="row">
                         <div class="col-lg-4 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3><?php echo '1' ?></h3>
-
-                                    <p></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-ios-people"></i>
-                                </div>
-                                <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>
-                                        <?= '2' ?>
+                                        <?= '0' ?>
                                     </h3>
 
-                                    <p></p>
+                                    <p>Photos</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-ios-people"></i>
+                                    <i class="fas fa-image"></i>
                                 </div>
                                 <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                             </div>
@@ -206,12 +199,31 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3><?php echo '3' ?></h3>
+                                    <h3>
+                                        <?= '0' ?>
+                                    </h3>
 
-                                    <p></p>
+                                    <p>Tasks</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-person-add"></i>
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-4 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>
+                                        <?= '0' ?>
+                                    </h3>
+
+                                    <p>Archived</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-archive"></i>
                                 </div>
                                 <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                             </div>

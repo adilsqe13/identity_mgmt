@@ -102,6 +102,23 @@ class UserModel extends CI_Model
         return $random_password;
     }
 
+    // public function send_password_email($to_email, $password)
+    // {
+
+    //     $this->email->from('mdadil.bitpastel@gmail.com', 'Your Name');
+    //     $this->email->to($to_email);
+    //     $this->email->subject('Test Email');
+    //     $this->email->message('This is a test email.');
+
+    //     // Send the email and check for errors
+    //     if ($this->email->send()) {
+    //         echo 'Email sent.';
+    //         return true;
+    //     } else {
+    //         echo $this->email->print_debugger(); // Print the debug information
+    //         return false;
+    //     }
+    // }
     public function send_password_email($to_email, $password)
     {
 

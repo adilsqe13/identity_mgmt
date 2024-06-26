@@ -26,9 +26,9 @@
             <div class="card-body login-card-body">
                 <!-- <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p> -->
                 <form action="<?= base_url('User/ResetPassword/reset_password') ?>" method="post">
-                <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id')?>">
+                    <input type="hidden" name="user_id" value="<?php echo $this->input->get('user_id') ?>">
                     <div class="input-group mt-3">
-                        <input type="password" class="form-control" name="password-1" value="<?php echo $this->session->flashdata('password-1') ?>" placeholder="New Password" required>
+                        <input id="pass1" type="password" class="form-control" name="password-1" value="<?php echo $this->session->flashdata('password-1') ?>" placeholder="New Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -41,7 +41,7 @@
                     <?php endif; ?>
 
                     <div class="input-group mt-3">
-                        <input type="password" class="form-control" name="password-2" placeholder="Confirm New Password" required>
+                        <input id="pass2" type="password" class="form-control" name="password-2" placeholder="Confirm New Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -54,7 +54,7 @@
                     <?php endif; ?>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-danger btn-block">Update</button>
+                            <button id="submit_btn" type="submit" class="btn btn-danger btn-block">Update</button>
                         </div>
                     </div>
                 </form>
@@ -90,6 +90,23 @@
                     title: '<h5><?php echo $this->session->flashdata('reset_pass_success'); ?></h5>'
                 });
             <?php endif; ?>
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pass1Field = document.getElementById('pass1');
+            const pass2Field = document.getElementById('pass2');
+            const submitBtn = document.getElementById('submit_btn'); // Assuming the submit button has the ID 'submit_btn'
+
+            function checkPasswords() {
+                const pass1 = pass1Field.value;
+                const pass2 = pass2Field.value;
+                submitBtn.disabled = (pass1 !== pass2);
+            }
+
+            pass1Field.addEventListener('input', checkPasswords);
+            pass2Field.addEventListener('input', checkPasswords);
         });
     </script>
 </body>

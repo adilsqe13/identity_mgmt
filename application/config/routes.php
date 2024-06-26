@@ -26,6 +26,13 @@ $route['dashboard'] = 'User/Dashboard';
 $route['dashboard/change-password'] = 'User/ChangePassword';
 $route['forgot-password'] = 'User/ForgotPassword';
 $route['reset-password'] = 'User/ResetPassword';
+$route['dashboard/profile'] = 'User/Profile';
+$route['dashboard/profile/edit_profile'] = 'User/Edit_profile';
+$route['dashboard/task-manager'] = 'User/TaskManager';
+$route['dashboard/task-manager/add-task'] = 'User/AddTask';
+$route['dashboard/task-manager/archive-task'] = 'User/ArchiveTask';
+$route['dashboard/picture-dump'] = 'User/PictureDump';
+
 
 
 

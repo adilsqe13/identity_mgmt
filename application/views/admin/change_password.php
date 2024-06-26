@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>New Password</label>
-                                    <input type="password" name="password-1" value="<?= $this->session->flashdata('password-1') ?>" class="form-control" required>
+                                    <input id="pass1" type="password" name="password-1" value="<?= $this->session->flashdata('password-1') ?>" class="form-control" required>
                                     <!-- Error Msg Display -->
                                     <?php if ($this->session->flashdata('password_count_error')) : ?>
                                         <span style="color: red ; font-size: 13px;" align='left'><?php echo $this->session->flashdata('password_count_error'); ?></span>
@@ -219,7 +219,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Update</button>
+                                <button id="submit_btn" type="submit" class="btn btn-success">Update</button>
                             </div>
                         </form>
                     </div>
@@ -281,6 +281,22 @@
                     title: '<h5><?php echo $this->session->flashdata('error'); ?></h5>'
                 });
             <?php endif; ?>
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pass1Field = document.getElementById('pass1');
+            const pass2Field = document.getElementById('pass2');
+            const submitBtn = document.getElementById('submit_btn'); // Assuming the submit button has the ID 'submit_btn'
+
+            function checkPasswords() {
+                const pass1 = pass1Field.value;
+                const pass2 = pass2Field.value;
+                submitBtn.disabled = (pass1 !== pass2);
+            }
+
+            pass1Field.addEventListener('input', checkPasswords);
+            pass2Field.addEventListener('input', checkPasswords);
         });
     </script>
 

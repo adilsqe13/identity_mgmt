@@ -226,8 +226,8 @@
                                     ?>
                                         <tr>
                                             <td><?= $row->user_id ?></td>
-                                            <td><?= $row->f_name ?></td>
-                                            <td><?= $row->browser ?></td>
+                                            <td><?= htmlspecialchars($row->f_name) ?></td>
+                                            <td><?= htmlspecialchars($row->browser) ?></td>
                                             <td><?php
                                                 $date = new DateTime("@$row->login_time");
                                                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
